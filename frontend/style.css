@@ -1,0 +1,34 @@
+body {
+    font-family: 'Montserrat';
+    min-height: 100vh;
+    background-image: linear-gradient(to top, white 50%, #0a70c9);
+}
+
+
+
+#title {
+    text-align: center;
+    font-size: 80px;
+    color: white;
+}
+
+table {
+    margin-left: auto;
+    margin-right: auto;
+    border-collapse: collapse;
+}
+
+table tr:hover {
+    background-color: #8e9294;
+}
+
+table th {
+    color: white;
+}
+
+table, th, td {
+    text-align: left;
+    border: 2px solid black;
+    width: 500px;
+    padding: 5px
+}
