@@ -2,6 +2,7 @@ const express = require('express')
 const app = express()
 const fs = require('fs')
 const cp = require('child_process')
+app.use(express.json())
 
 let fileData = {
     subDomain: 'usman',
@@ -18,8 +19,6 @@ let proxyData = `server {listen 80; listen [::]:80; server_name ${fileData.subDo
 
 
 
-
-
 /* app.get('/', async (req,res) => {
 
     fs.readFile('index.html', (err, data) => {
@@ -27,6 +26,11 @@ let proxyData = `server {listen 80; listen [::]:80; server_name ${fileData.subDo
     })
 
 }) */
+
+app.post('/api/create', async (req,res) => {
+    let data = req.body
+    console.log(data.hallo)
+})
 
 function executeCommand(alsoFileData) {
     cp.exec(`sudo ln -s /etc/nginx/sites-available/${alsoFileData.subDomain} /etc/nginx/sites-enabled/${alsoFileData.subDomain}`, (error, stdout, stderr) => {

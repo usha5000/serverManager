@@ -4,8 +4,6 @@ body {
     background-image: linear-gradient(to top, white 50%, #0a70c9);
 }
 
-
-
 #title {
     text-align: center;
     font-size: 80px;
@@ -18,17 +16,27 @@ table {
     border-collapse: collapse;
 }
 
-table tr:hover {
-    background-color: #8e9294;
+table tr:hover td {
+    border-bottom: 2px solid white;
 }
 
-table th {
-    color: white;
-}
 
 table, th, td {
     text-align: left;
-    border: 2px solid black;
+    border-bottom: 1px solid;
+    transition: 0.3s;
     width: 500px;
     padding: 5px
+}
+
+#lol {
+    text-align: center;
+    padding: 10px
+}
+
+#openModal {
+    padding: 10px;
+    font-size: 15px;
+    border: 1px;
+    text-decoration: none;
 }
