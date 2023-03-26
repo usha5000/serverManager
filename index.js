@@ -2,38 +2,44 @@ const express = require('express')
 const app = express()
 const fs = require('fs')
 const cp = require('child_process')
+const configProxy = require("./configProxy.json")
 app.use(express.json())
 
 let fileData = {
     subDomain: 'usman',
-    Port: '8082',
+    Port: '8083',
 }
-let proxyData = `server {listen 80; listen [::]:80; server_name ${fileData.subDomain}.verion.ch; location / {proxy_pass http://127.0.0.1:${fileData.Port}; include proxy_params; }}`
 
 
-/* function createProxyFile(data, proxy) {
-    fs.writeFileSync(`/etc/nginx/sites-available/${data.subDomain}`, proxy)
-    executeCommand(data)
-
-} createProxyFile(fileData, proxyData) */
-
-
-
-/* app.get('/', async (req,res) => {
-
-    fs.readFile('index.html', (err, data) => {
-        res.end(data)
-    })
-
-}) */
-
-app.post('/api/create', async (req,res) => {
+app.post('/api/create', async (req, res) => {
     let data = req.body
-    console.log(data.hallo)
+
+    console.log(data)
 })
 
+
+function putProxyData(data) {
+    let read = fs.readFileSync('./configProxy.json')
+    let obj = JSON.parse(read)
+
+    obj[data.Domain] = data
+    let newData = JSON.stringify(obj)
+
+    fs.writeFileSync('./configProxy.json', newData)
+}
+
+
+
+function createProxyFile(data) {
+    let proxyData = `server {listen 80; listen [::]:80; server_name ${data.Domain}.verion.ch; location / {proxy_pass http://127.0.0.1:${data.Port}; include proxy_params; }}`
+    fs.writeFileSync(`/etc/nginx/sites-available/${data.subDomain}`, proxyData)
+    executeCommand(data)
+
+}
+
+
 function executeCommand(alsoFileData) {
-    cp.exec(`sudo ln -s /etc/nginx/sites-available/${alsoFileData.subDomain} /etc/nginx/sites-enabled/${alsoFileData.subDomain}`, (error, stdout, stderr) => {
+    cp.exec(`sudo ln -s /etc/nginx/sites-available/${alsoFileData.Domain} /etc/nginx/sites-enabled/${alsoFileData.Domain}`, (error, stdout, stderr) => {
         if (error) {
             console.log(`error: ${error.message}`);
             return;
@@ -61,5 +67,5 @@ function executeCommand(alsoFileData) {
 app.use(express.static('./frontend'))
 
 app.listen(fileData.Port, () => {
-	console.log("online")
+    console.log("online")
 })

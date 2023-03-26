@@ -1,3 +1,18 @@
 {
-    
+    "usman": {
+        "subdomain": "usman",
+        "port": 82
+    },
+    "adshay": {
+        "subdomain": "adshay",
+        "Port": 8083
+    },
+    "data": {
+        "Domain": "liam",
+        "Port": 8084
+    },
+    "liam": {
+        "Domain": "liam",
+        "Port": 8084
+    }
 }
