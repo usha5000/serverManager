@@ -15,8 +15,12 @@ app.post('/api/create', async (req, res) => {
     let data = req.body
 
     console.log(data)
+    res.send("hund")
 })
 
+app.get('/api/get', async (req, res) => {
+    res.send(configProxy)
+})
 
 function putProxyData(data) {
     let read = fs.readFileSync('./configProxy.json')
